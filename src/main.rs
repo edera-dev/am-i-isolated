@@ -1,3 +1,4 @@
+pub mod cap;
 pub mod containerd;
 pub mod docker;
 pub mod hvdetect;
@@ -11,6 +12,7 @@ pub mod yama;
 
 use std::error::Error;
 
+use self::cap::CapTest;
 use self::docker::DockerTest;
 use self::containerd::ContainerDTest;
 use self::hvdetect::HypervisorTest;
@@ -53,6 +55,7 @@ fn main() {
         Box::new(ProcMaskTest {}),
         Box::new(RootTest {}),
         Box::new(SeccompTest {}),
+        Box::new(CapTest {}),
         Box::new(YamaTest {}),
     ];
 
