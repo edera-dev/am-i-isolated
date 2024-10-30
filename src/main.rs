@@ -5,6 +5,7 @@ pub mod mmap;
 pub mod oci;
 pub mod procmask;
 pub mod root;
+pub mod seccomp;
 pub mod util;
 pub mod yama;
 
@@ -17,6 +18,7 @@ use self::mmap::MmapRWXTest;
 use self::oci::OCITest;
 use self::procmask::ProcMaskTest;
 use self::root::RootTest;
+use self::seccomp::SeccompTest;
 use self::yama::YamaTest;
 
 use anyhow::Result;
@@ -50,6 +52,7 @@ fn main() {
         Box::new(MmapRWXTest {}),
         Box::new(ProcMaskTest {}),
         Box::new(RootTest {}),
+        Box::new(SeccompTest {}),
         Box::new(YamaTest {}),
     ];
 
