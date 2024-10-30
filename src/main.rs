@@ -17,7 +17,7 @@ use self::yama::YamaTest;
 use anyhow::Result;
 
 fn banner() {
-    println!("Secbench {}.  Copyright 2024 Edera Inc.", env!("CARGO_PKG_VERSION"));
+    println!("Am I Isolated version {}.  Copyright 2024 Edera Inc.", env!("CARGO_PKG_VERSION"));
 }
 
 pub trait TestResult {
