@@ -3,6 +3,7 @@ pub mod docker;
 pub mod hvdetect;
 pub mod mmap;
 pub mod oci;
+pub mod procmask;
 pub mod yama;
 
 use std::error::Error;
@@ -12,6 +13,7 @@ use self::containerd::ContainerDTest;
 use self::hvdetect::HypervisorTest;
 use self::mmap::MmapRWXTest;
 use self::oci::OCITest;
+use self::procmask::ProcMaskTest;
 use self::yama::YamaTest;
 
 use anyhow::Result;
@@ -43,6 +45,7 @@ fn main() {
         Box::new(ContainerDTest {}),
         Box::new(HypervisorTest {}),
         Box::new(MmapRWXTest {}),
+        Box::new(ProcMaskTest {}),
         Box::new(YamaTest {}),
     ];
 
