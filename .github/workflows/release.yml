@@ -38,17 +38,17 @@ jobs:
       with:
         file: ./Dockerfile
         platforms: linux/amd64,linux/aarch64
-        tags: "ghcr.io/edera-dev/secbench:${{ github.event.release.tag_name }},ghcr.io/edera-dev/secbench:latest"
+        tags: "ghcr.io/edera-dev/am-i-isolated:${{ github.event.release.tag_name }},ghcr.io/edera-dev/am-i-isolated:latest"
         push: true
     - name: cosign sign tag
       run: cosign sign --yes "${TAGS}@${DIGEST}"
       env:
         DIGEST: "${{ steps.push.outputs.digest }}"
-        TAGS: "ghcr.io/edera-dev/secbench:${{ github.event.release.tag_name }}"
+        TAGS: "ghcr.io/edera-dev/am-i-isolated:${{ github.event.release.tag_name }}"
         COSIGN_EXPERIMENTAL: "true"
     - name: cosign sign latest
       run: cosign sign --yes "${TAGS}@${DIGEST}"
       env:
         DIGEST: "${{ steps.push.outputs.digest }}"
-        TAGS: "ghcr.io/edera-dev/secbench:latest"
+        TAGS: "ghcr.io/edera-dev/am-i-isolated:latest"
         COSIGN_EXPERIMENTAL: "true"

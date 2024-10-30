@@ -38,11 +38,11 @@ jobs:
       with:
         file: ./Dockerfile
         platforms: linux/amd64,linux/aarch64
-        tags: "ghcr.io/edera-dev/secbench:nightly"
+        tags: "ghcr.io/edera-dev/am-i-isolated:nightly"
         push: true
     - name: cosign sign
       run: cosign sign --yes "${TAGS}@${DIGEST}"
       env:
         DIGEST: "${{ steps.push.outputs.digest }}"
-        TAGS: "ghcr.io/edera-dev/secbench:nightly"
+        TAGS: "ghcr.io/edera-dev/am-i-isolated:nightly"
         COSIGN_EXPERIMENTAL: "true"
