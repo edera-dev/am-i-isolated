@@ -1,24 +1,13 @@
-use std::fs::read_to_string;
 use anyhow::Result;
 
 use crate::{Test, TestResult};
+use crate::util::read_file_as_lines;
 
 pub struct YamaTest {}
 
 #[derive(Default)]
 pub struct YamaResult {
     pub present: bool,
-}
-
-fn read_kallsyms() -> Result<Vec<String>, ()> {
-    if let Ok(kallsyms) = read_to_string("/proc/kallsyms") {
-        return Ok(kallsyms
-            .lines()
-            .map(String::from)
-            .collect())
-    }
-
-    Err(())
 }
 
 impl Test for YamaTest {
@@ -31,7 +20,7 @@ impl Test for YamaTest {
             present: false,
         };
 
-        if let Ok(lines) = read_kallsyms() {
+        if let Ok(lines) = read_file_as_lines("/proc/kallsyms") {
             for line in lines {
                 if line.contains("yama_lsmid") {
                     result.present = true;

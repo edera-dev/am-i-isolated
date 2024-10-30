@@ -5,6 +5,7 @@ pub mod mmap;
 pub mod oci;
 pub mod procmask;
 pub mod root;
+pub mod util;
 pub mod yama;
 
 use std::error::Error;
