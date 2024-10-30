@@ -4,6 +4,7 @@ pub mod hvdetect;
 pub mod mmap;
 pub mod oci;
 pub mod procmask;
+pub mod root;
 pub mod yama;
 
 use std::error::Error;
@@ -14,6 +15,7 @@ use self::hvdetect::HypervisorTest;
 use self::mmap::MmapRWXTest;
 use self::oci::OCITest;
 use self::procmask::ProcMaskTest;
+use self::root::RootTest;
 use self::yama::YamaTest;
 
 use anyhow::Result;
@@ -46,6 +48,7 @@ fn main() {
         Box::new(HypervisorTest {}),
         Box::new(MmapRWXTest {}),
         Box::new(ProcMaskTest {}),
+        Box::new(RootTest {}),
         Box::new(YamaTest {}),
     ];
 
