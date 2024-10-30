@@ -20,7 +20,7 @@ impl Test for ProcMaskTest {
             masked: true,
         };
 
-        if let Ok(f) = File::create("/proc/sysrq-trigger") {
+        if let Ok(_f) = File::create("/proc/sysrq-trigger") {
             result.masked = false;
         }
 
