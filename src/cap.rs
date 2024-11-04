@@ -36,7 +36,11 @@ impl Test for CapTest {
 
         if let Ok(stat) = read_file_as_tuples("/proc/self/status") {
             if let Ok(flags) = u64::from_str_radix(stat["CapAmb"].as_str(), 16) {
-                result.flags = flags;
+                result.flags |= flags;
+            }
+
+            if let Ok(flags) = u64::from_str_radix(stat["CapEff"].as_str(), 16) {
+                result.flags |= flags;
             }
         }
 
@@ -51,7 +55,7 @@ impl TestResult for CapResult {
 
     fn explain(&self) {
         if self.success() {
-            println!("  + No dangerous ambient capability bits detected.");
+            println!("  + No dangerous capability bits detected.");
             return;
         }
 
