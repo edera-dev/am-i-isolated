@@ -1,7 +1,6 @@
 pub mod cap;
 pub mod containerd;
 pub mod docker;
-pub mod hvdetect;
 pub mod mmap;
 pub mod oci;
 pub mod procmask;
@@ -16,7 +15,6 @@ use std::error::Error;
 use self::cap::CapTest;
 use self::docker::DockerTest;
 use self::containerd::ContainerDTest;
-use self::hvdetect::HypervisorTest;
 use self::mmap::MmapRWXTest;
 use self::oci::OCITest;
 use self::procmask::ProcMaskTest;
@@ -52,7 +50,6 @@ fn main() {
         Box::new(OCITest {}),
         Box::new(DockerTest {}),
         Box::new(ContainerDTest {}),
-        Box::new(HypervisorTest {}),
         Box::new(MmapRWXTest {}),
         Box::new(ProcMaskTest {}),
         Box::new(RootTest {}),
