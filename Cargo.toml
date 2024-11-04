@@ -6,4 +6,3 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.91"
 libc = "0.2.161"
-raw-cpuid = "11.2.0"
