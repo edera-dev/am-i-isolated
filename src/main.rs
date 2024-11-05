@@ -10,7 +10,9 @@ pub mod seccomp;
 pub mod util;
 pub mod yama;
 
+use std::env;
 use std::error::Error;
+use std::process;
 
 use self::cap::CapTest;
 use self::docker::DockerTest;
@@ -44,7 +46,26 @@ pub trait Test {
     fn run(&self) -> Result<Box<dyn TestResult>, ()>;
 }
 
+fn usage() {
+    println!("usage: am-i-isolated [--only-failed-tests] [--help]");
+    println!("");
+    println!("  --only-failed-tests       show only failed tests");
+    println!("  --help                    show help message");
+    process::exit(1);
+}
+
 fn main() {
+    let mut show_passing = true;
+    let args: Vec<String> = env::args().collect();
+
+    for arg in args {
+        if arg == "--only-failed-tests" {
+            show_passing = false;
+        } else if arg == "--help" {
+            usage();
+        }
+    }
+
     banner();
 
     let tests: Vec<Box<dyn Test>> = vec![
@@ -64,7 +85,7 @@ fn main() {
         let result = test.run().expect("failed to run test");
         if !result.success() {
             println!("\x1B[31m{}: [{}] {}\x1B[0m", test.name(), result.fault_code(), result.explain());
-        } else {
+        } else if show_passing {
             println!("\x1B[32m{}: {}\x1B[0m", test.name(), result.as_string());
         }
     }
