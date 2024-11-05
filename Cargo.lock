@@ -3,6 +3,14 @@
 version = 3
 
 [[package]]
+name = "am-i-isolated"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "libc",
+]
+
+[[package]]
 name = "anyhow"
 version = "1.0.92"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -13,11 +21,3 @@ name = "libc"
 version = "0.2.161"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8e9489c2807c139ffd9c1794f4af0ebe86a828db53ecdc7fea2111d0fed085d1"
-
-[[package]]
-name = "secbench"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "libc",
-]
