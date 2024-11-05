@@ -12,7 +12,7 @@ pub struct MmapRWXResult {
 
 impl Test for MmapRWXTest {
     fn name(&self) -> String {
-        "whether RWX memory mappings are allowed".to_string()
+        "RWX memory mappings".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -37,15 +37,12 @@ impl TestResult for MmapRWXResult {
         !self.allowed
     }
 
-    fn explain(&self) {
+    fn explain(&self) -> String {
         if !self.allowed {
-            println!("  + RWX memory mappings are not allowed.");
-            return;
+            return "".to_string();
         }
 
-        println!("  - Why: RWX and WX memory mappings can be abused as part of a larger memory");
-        println!("         safety attack chain.");
-        println!("  - Suggestion: Deploy the OpenPaX kernel patch for memory safety mitigations.");
+        "RWX and WX memory mappings can be used as part of a memory safety attack chain".to_string()
     }
 
     fn as_string(&self) -> String {

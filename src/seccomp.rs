@@ -12,7 +12,7 @@ pub struct SeccompResult {
 
 impl Test for SeccompTest {
     fn name(&self) -> String {
-        "whether a Seccomp profile is attached".to_string()
+        "seccomp profile".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -35,14 +35,12 @@ impl TestResult for SeccompResult {
         self.present
     }
 
-    fn explain(&self) {
+    fn explain(&self) -> String {
         if self.present {
-            println!("  + Seccomp profile is present.");
-            return;
+            return "".to_string();
         }
 
-        println!("  - Why: Seccomp prevents dangerous system calls from being usable.");
-        println!("  - Suggestion: Run workloads with seccomp profiles enabled.");
+        "no seccomp profile was found".to_string()
     }
 
     fn as_string(&self) -> String {

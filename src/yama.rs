@@ -12,7 +12,7 @@ pub struct YamaResult {
 
 impl Test for YamaTest {
     fn name(&self) -> String {
-        "whether the Yama LSM is present".to_string()
+        "Yama LSM".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -37,14 +37,12 @@ impl TestResult for YamaResult {
         self.present
     }
 
-    fn explain(&self) {
+    fn explain(&self) -> String {
         if self.present {
-            println!("  + Yama LSM is present.");
-            return;
+            return "".to_string();
         }
 
-        println!("  - Why: Yama LSM prevents several types of ptrace-based container escapes.");
-        println!("  - Suggestion: Use a kernel with Yama LSM enabled.");
+        "Yama LSM not present, enabling it would prevent several ptrace-based escape attacks".to_string()
     }
 
     fn as_string(&self) -> String {

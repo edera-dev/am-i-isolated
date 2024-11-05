@@ -30,7 +30,7 @@ fn resolve_nsid(ns: &str) -> u64 {
 
 impl Test for RootNSTest {
     fn name(&self) -> String {
-        "whether any host namespaces are exposed".to_string()
+        "host namespaces".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -49,23 +49,26 @@ impl TestResult for RootNSResult {
         self.pid_nsid > 0xf0000001 && self.net_nsid > 0xf0000001 && self.ipc_nsid > 0xf0000001
     }
 
-    fn explain(&self) {
+    fn explain(&self) -> String {
         if self.success() {
-            println!("  + All checked namespace IDs were dynamically allocated.");
-            return;
+            return "".to_string();
         }
 
+        let mut result = "found host namespaces:".to_string();
+
         if self.pid_nsid < 0xf0000002 {
-            println!("  - Host PID namespace is present.");
+            result += " pid";
         }
 
         if self.net_nsid < 0xf0000002 {
-            println!("  - Host networking namespace is present.");
+            result += " net";
         }
 
         if self.ipc_nsid < 0xf0000002 {
-            println!("  - Host IPC namespace is present.");
+            result += " ipc";
         }
+
+        result
     }
 
     fn as_string(&self) -> String {

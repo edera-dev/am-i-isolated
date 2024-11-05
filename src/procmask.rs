@@ -12,7 +12,7 @@ pub struct ProcMaskResult {
 
 impl Test for ProcMaskTest {
     fn name(&self) -> String {
-        "whether access to /proc and /sys is masked".to_string()
+        "/proc and /sys masking".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -33,15 +33,12 @@ impl TestResult for ProcMaskResult {
         self.masked
     }
 
-    fn explain(&self) {
+    fn explain(&self) -> String {
         if self.masked {
-            println!("  + Access to /proc and /sys appears to be masked.");
-            return;
+            return "".to_string();
         }
 
-        println!("  - Access to /proc and /sys appears to NOT be masked.");
-        println!("    This container environment can possibly be used to restart the host, as well as");
-        println!("    discover more about system configuration.");
+        "access to /proc and /sys is not masked, can be used to restart the host and discover system configuration data".to_string()
     }
 
     fn as_string(&self) -> String {

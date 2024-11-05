@@ -13,7 +13,7 @@ pub struct OCIResult {
 
 impl Test for OCITest {
     fn name(&self) -> String {
-        "for OCI runtime presence".to_string()
+        "OCI runtime".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -36,11 +36,12 @@ impl TestResult for OCIResult {
         self.present
     }
 
-    fn explain(&self) {
-        if self.present {
-            println!("  + OCI container is: {:?}", self.runtime);
-            return;
+    fn explain(&self) -> String {
+        if !self.present {
+            return "no OCI runtime found, results may be inaccurate".to_string();
         }
+
+        format!("{} container runtime found", self.runtime).to_string()
     }
 
     fn as_string(&self) -> String {

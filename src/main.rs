@@ -26,12 +26,12 @@ use self::yama::YamaTest;
 use anyhow::Result;
 
 fn banner() {
-    println!("Am I Isolated version {}.  Copyright 2024 Edera Inc.", env!("CARGO_PKG_VERSION"));
+    println!("Am I Isolated version {}.  Copyright 2024 Edera Inc.\n", env!("CARGO_PKG_VERSION"));
 }
 
 pub trait TestResult {
     fn success(&self) -> bool;
-    fn explain(&self);
+    fn explain(&self) -> String;
     fn as_string(&self) -> String;
     fn fault_code(&self) -> String;
 }
@@ -61,9 +61,11 @@ fn main() {
     ];
 
     for test in &tests {
-        print!("\n* Checking {}... ", test.name());
         let result = test.run().expect("failed to run test");
-        println!("{}", result.as_string());
-        result.explain();
+        if !result.success() {
+            println!("\x1B[31m{}: [{}] {}\x1B[0m", test.name(), result.fault_code(), result.explain());
+        } else {
+            println!("\x1B[32m{}: {}\x1B[0m", test.name(), result.as_string());
+        }
     }
 }

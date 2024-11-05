@@ -26,7 +26,7 @@ const CAP_ANY: u64 = CAP_SYS_ADMIN | CAP_SYS_MODULE | CAP_SYS_PTRACE | CAP_NET_A
 
 impl Test for CapTest {
     fn name(&self) -> String {
-        "whether any dangerous capability bits are available".to_string()
+        "exploitable capabilities".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -53,11 +53,12 @@ impl TestResult for CapResult {
         self.flags & CAP_ANY == 0
     }
 
-    fn explain(&self) {
+    fn explain(&self) -> String {
         if self.success() {
-            println!("  + No dangerous capability bits detected.");
-            return;
+            return "".to_string();
         }
+
+        let mut result = "dangerous capabilities found: ".to_string();
 
         let cap_names = HashMap::from([
             (CAP_SYS_ADMIN, "CAP_SYS_ADMIN"),
@@ -74,9 +75,11 @@ impl TestResult for CapResult {
 
         for k in cap_names.keys() {
             if self.flags & k == *k {
-                println!("  - {} found", cap_names[k]);
+                result += &format!(" {}", cap_names[k]).to_string();
             }
         }
+
+        result
     }
 
     fn as_string(&self) -> String {

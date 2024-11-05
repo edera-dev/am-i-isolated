@@ -14,7 +14,7 @@ pub struct DockerResult {
 
 impl Test for DockerTest {
     fn name(&self) -> String {
-        "for docker socket".to_string()
+        "docker socket".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -36,15 +36,12 @@ impl TestResult for DockerResult {
         !self.allowed
     }
 
-    fn explain(&self) {
-        if !self.allowed {
-            println!("  + No usable docker socket was found.");
-            return;
+    fn explain(&self) -> String {
+        if self.success() {
+            return "".to_string();
         }
 
-        println!("  - Why: `docker run --privileged` can be used to compromise the system through");
-        println!("         the use of privileged containers.");
-        println!("  - Suggestion: Don't share the docker socket with untrusted containers.");
+        "Docker socket found, `docker run --privileged` can be used to escape".to_string()
     }
 
     fn as_string(&self) -> String {
