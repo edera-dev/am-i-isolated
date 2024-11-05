@@ -59,16 +59,10 @@ fn main() {
         Box::new(YamaTest {}),
     ];
 
-    let mut passing = 0;
     for test in &tests {
         print!("\n* Checking {}... ", test.name());
         let result = test.run().expect("failed to run test");
         println!("{}", result.as_string());
         result.explain();
-        if result.success() {
-            passing += 1;
-        }
     }
-
-    println!("\nScore: {}/{}", passing, &tests.len());
 }
