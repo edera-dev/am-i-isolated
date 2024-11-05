@@ -18,9 +18,7 @@ impl Test for DockerTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = DockerResult{
-            allowed: false,
-        };
+        let mut result = DockerResult { allowed: false };
 
         let usable = UnixStream::connect(DOCKER_SOCKET_LOCATION).map_or(false, |_| true);
         if usable {

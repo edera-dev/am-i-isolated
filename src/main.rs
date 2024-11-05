@@ -1,5 +1,6 @@
 pub mod cap;
 pub mod containerd;
+pub mod dirtypipe;
 pub mod docker;
 pub mod mmap;
 pub mod oci;
@@ -7,14 +8,16 @@ pub mod procmask;
 pub mod root;
 pub mod rootns;
 pub mod seccomp;
+pub mod uptime;
 pub mod util;
 pub mod yama;
 
 use std::error::Error;
 
 use self::cap::CapTest;
-use self::docker::DockerTest;
 use self::containerd::ContainerDTest;
+use self::dirtypipe::DirtyPipeTest;
+use self::docker::DockerTest;
 use self::mmap::MmapRWXTest;
 use self::oci::OCITest;
 use self::procmask::ProcMaskTest;
@@ -24,9 +27,13 @@ use self::seccomp::SeccompTest;
 use self::yama::YamaTest;
 
 use anyhow::Result;
+use uptime::UptimeTest;
 
 fn banner() {
-    println!("Am I Isolated version {}.  Copyright 2024 Edera Inc.", env!("CARGO_PKG_VERSION"));
+    println!(
+        "Am I Isolated version {}.  Copyright 2024 Edera Inc.",
+        env!("CARGO_PKG_VERSION")
+    );
 }
 
 pub trait TestResult {
@@ -35,8 +42,7 @@ pub trait TestResult {
     fn as_string(&self) -> String;
 }
 
-pub trait TestError: Error {
-}
+pub trait TestError: Error {}
 
 pub trait Test {
     fn name(&self) -> String;
@@ -48,6 +54,7 @@ fn main() {
 
     let tests: Vec<Box<dyn Test>> = vec![
         Box::new(OCITest {}),
+        Box::new(DirtyPipeTest {}),
         Box::new(DockerTest {}),
         Box::new(ContainerDTest {}),
         Box::new(MmapRWXTest {}),
@@ -56,6 +63,7 @@ fn main() {
         Box::new(SeccompTest {}),
         Box::new(CapTest {}),
         Box::new(RootNSTest {}),
+        Box::new(UptimeTest {}),
         Box::new(YamaTest {}),
     ];
 

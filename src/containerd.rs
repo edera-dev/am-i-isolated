@@ -18,9 +18,7 @@ impl Test for ContainerDTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = ContainerDResult{
-            allowed: false,
-        };
+        let mut result = ContainerDResult { allowed: false };
 
         let usable = UnixStream::connect(CONTAINERD_SOCKET_LOCATION).map_or(false, |_| true);
         if usable {
@@ -42,7 +40,9 @@ impl TestResult for ContainerDResult {
             return;
         }
 
-        println!("  - Why: `nerdctl run --privileged` can be used to compromise the system through");
+        println!(
+            "  - Why: `nerdctl run --privileged` can be used to compromise the system through"
+        );
         println!("         the use of privileged containers.");
         println!("  - Suggestion: Don't share the docker socket with untrusted containers.");
     }

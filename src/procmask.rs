@@ -1,5 +1,5 @@
-use std::fs::File;
 use anyhow::Result;
+use std::fs::File;
 
 use crate::{Test, TestResult};
 
@@ -16,9 +16,7 @@ impl Test for ProcMaskTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = ProcMaskResult{
-            masked: true,
-        };
+        let mut result = ProcMaskResult { masked: true };
 
         if let Ok(_f) = File::create("/proc/sysrq-trigger") {
             result.masked = false;
@@ -40,7 +38,9 @@ impl TestResult for ProcMaskResult {
         }
 
         println!("  - Access to /proc and /sys appears to NOT be masked.");
-        println!("    This container environment can possibly be used to restart the host, as well as");
+        println!(
+            "    This container environment can possibly be used to restart the host, as well as"
+        );
         println!("    discover more about system configuration.");
     }
 
