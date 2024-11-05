@@ -1,7 +1,7 @@
 use anyhow::Result;
 
-use crate::{Test, TestResult};
 use crate::util::read_file_as_tuples;
+use crate::{Test, TestResult};
 
 pub struct SeccompTest {}
 
@@ -16,9 +16,7 @@ impl Test for SeccompTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = SeccompResult{
-            present: false,
-        };
+        let mut result = SeccompResult { present: false };
 
         if let Ok(stat) = read_file_as_tuples("/proc/self/status") {
             if stat["Seccomp"] != "0" {

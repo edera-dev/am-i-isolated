@@ -1,5 +1,5 @@
-use std::fs;
 use anyhow::Result;
+use std::fs;
 
 use crate::{Test, TestResult};
 
@@ -18,7 +18,7 @@ fn resolve_nsid(ns: &str) -> u64 {
             let parts: Vec<_> = rawlink.split(':').collect();
             let raw_nsid = &parts[1];
             let cooked_nsid = &raw_nsid[1..raw_nsid.len() - 1];
-            
+
             if let Ok(parsed_nsid) = u64::from_str_radix(cooked_nsid, 10) {
                 return parsed_nsid;
             }
@@ -34,7 +34,7 @@ impl Test for RootNSTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let result = RootNSResult{
+        let result = RootNSResult {
             pid_nsid: resolve_nsid("pid"),
             net_nsid: resolve_nsid("net"),
             ipc_nsid: resolve_nsid("ipc"),

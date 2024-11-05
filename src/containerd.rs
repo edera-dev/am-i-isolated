@@ -18,9 +18,7 @@ impl Test for ContainerDTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = ContainerDResult{
-            allowed: false,
-        };
+        let mut result = ContainerDResult { allowed: false };
 
         let usable = UnixStream::connect(CONTAINERD_SOCKET_LOCATION).map_or(false, |_| true);
         if usable {
@@ -41,7 +39,8 @@ impl TestResult for ContainerDResult {
             return "".to_string();
         }
 
-        return "ContainerD socket found, `nerdctl run --privileged` can be used to escape".to_string();
+        return "ContainerD socket found, `nerdctl run --privileged` can be used to escape"
+            .to_string();
     }
 
     fn as_string(&self) -> String {

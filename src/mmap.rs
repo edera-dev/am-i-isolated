@@ -16,12 +16,17 @@ impl Test for MmapRWXTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = MmapRWXResult{
-            allowed: false,
-        };
+        let mut result = MmapRWXResult { allowed: false };
 
         unsafe {
-            let ptr = libc::mmap(std::ptr::null_mut(), 1024768, libc::PROT_READ | libc::PROT_WRITE | libc::PROT_EXEC, libc::MAP_PRIVATE | libc::MAP_ANON, 0, 0);
+            let ptr = libc::mmap(
+                std::ptr::null_mut(),
+                1024768,
+                libc::PROT_READ | libc::PROT_WRITE | libc::PROT_EXEC,
+                libc::MAP_PRIVATE | libc::MAP_ANON,
+                0,
+                0,
+            );
             if ptr != libc::MAP_FAILED {
                 result.allowed = true;
                 libc::munmap(ptr, 1024768);

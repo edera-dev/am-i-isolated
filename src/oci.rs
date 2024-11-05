@@ -1,5 +1,5 @@
-use std::env;
 use anyhow::Result;
+use std::env;
 
 use crate::{Test, TestResult};
 
@@ -17,14 +17,19 @@ impl Test for OCITest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = OCIResult{
+        let mut result = OCIResult {
             present: false,
             runtime: "".to_string(),
         };
 
         match env::var("container") {
-            Ok(val) => { result.present = true; result.runtime = val },
-            Err(_) => { result.present = false; }
+            Ok(val) => {
+                result.present = true;
+                result.runtime = val
+            }
+            Err(_) => {
+                result.present = false;
+            }
         }
 
         Ok(Box::new(result))

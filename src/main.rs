@@ -16,9 +16,9 @@ use std::error::Error;
 use std::process;
 
 use self::cap::CapTest;
-use self::docker::DockerTest;
-use self::dirtypipe::DirtyPipeTest;
 use self::containerd::ContainerDTest;
+use self::dirtypipe::DirtyPipeTest;
+use self::docker::DockerTest;
 use self::mmap::MmapRWXTest;
 use self::oci::OCITest;
 use self::procmask::ProcMaskTest;
@@ -30,7 +30,10 @@ use self::yama::YamaTest;
 use anyhow::Result;
 
 fn banner() {
-    println!("Am I Isolated version {}.  Copyright 2024 Edera Inc.\n", env!("CARGO_PKG_VERSION"));
+    println!(
+        "Am I Isolated version {}.  Copyright 2024 Edera Inc.\n",
+        env!("CARGO_PKG_VERSION")
+    );
 }
 
 pub trait TestResult {
@@ -40,8 +43,7 @@ pub trait TestResult {
     fn fault_code(&self) -> String;
 }
 
-pub trait TestError: Error {
-}
+pub trait TestError: Error {}
 
 pub trait Test {
     fn name(&self) -> String;
@@ -87,7 +89,12 @@ fn main() {
     for test in &tests {
         let result = test.run().expect("failed to run test");
         if !result.success() {
-            println!("\x1B[31m{}: [{}] {}\x1B[0m", test.name(), result.fault_code(), result.explain());
+            println!(
+                "\x1B[31m{}: [{}] {}\x1B[0m",
+                test.name(),
+                result.fault_code(),
+                result.explain()
+            );
         } else if show_passing {
             println!("\x1B[32m{}: {}\x1B[0m", test.name(), result.as_string());
         }

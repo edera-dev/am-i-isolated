@@ -1,8 +1,8 @@
-use std::collections::HashMap;
 use anyhow::Result;
+use std::collections::HashMap;
 
-use crate::{Test, TestResult};
 use crate::util::read_file_as_tuples;
+use crate::{Test, TestResult};
 
 pub struct CapTest {}
 
@@ -21,8 +21,16 @@ const CAP_SYS_RAWIO: u64 = 1 << 17;
 const CAP_SYS_BOOT: u64 = 1 << 22;
 const CAP_DAC_READ_SEARCH: u64 = 1 << 2;
 const CAP_SYSLOG: u64 = 1 << 34;
-const CAP_ANY: u64 = CAP_SYS_ADMIN | CAP_SYS_MODULE | CAP_SYS_PTRACE | CAP_NET_ADMIN | CAP_NET_RAW |
-                     CAP_SYS_CHROOT | CAP_SYS_RAWIO | CAP_SYS_BOOT | CAP_DAC_READ_SEARCH | CAP_SYSLOG;
+const CAP_ANY: u64 = CAP_SYS_ADMIN
+    | CAP_SYS_MODULE
+    | CAP_SYS_PTRACE
+    | CAP_NET_ADMIN
+    | CAP_NET_RAW
+    | CAP_SYS_CHROOT
+    | CAP_SYS_RAWIO
+    | CAP_SYS_BOOT
+    | CAP_DAC_READ_SEARCH
+    | CAP_SYSLOG;
 
 impl Test for CapTest {
     fn name(&self) -> String {
@@ -30,9 +38,7 @@ impl Test for CapTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = CapResult{
-            flags: 0,
-        };
+        let mut result = CapResult { flags: 0 };
 
         if let Ok(stat) = read_file_as_tuples("/proc/self/status") {
             if let Ok(flags) = u64::from_str_radix(stat["CapAmb"].as_str(), 16) {

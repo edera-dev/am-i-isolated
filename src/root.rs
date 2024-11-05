@@ -1,5 +1,5 @@
-use libc;
 use anyhow::Result;
+use libc;
 
 use crate::{Test, TestResult};
 
@@ -16,7 +16,7 @@ impl Test for RootTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let result = RootResult{
+        let result = RootResult {
             uid: unsafe { libc::getuid() },
         };
 

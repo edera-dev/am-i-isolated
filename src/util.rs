@@ -7,10 +7,7 @@ use libc::uname;
 
 pub fn read_file_as_lines<P: AsRef<Path>>(p: P) -> Result<Vec<String>, ()> {
     if let Ok(file) = read_to_string(p) {
-        return Ok(file
-            .lines()
-            .map(String::from)
-            .collect())
+        return Ok(file.lines().map(String::from).collect());
     }
 
     Err(())
@@ -28,7 +25,7 @@ pub fn read_file_as_tuples<P: AsRef<Path>>(p: P) -> Result<HashMap<String, Strin
             map.insert(key, String::from(value.trim()));
         }
 
-        return Ok(map)
+        return Ok(map);
     }
 
     Err(())

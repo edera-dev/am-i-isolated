@@ -1,7 +1,7 @@
 use anyhow::Result;
 
-use crate::{Test, TestResult};
 use crate::util::read_file_as_lines;
+use crate::{Test, TestResult};
 
 pub struct YamaTest {}
 
@@ -16,9 +16,7 @@ impl Test for YamaTest {
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
-        let mut result = YamaResult{
-            present: false,
-        };
+        let mut result = YamaResult { present: false };
 
         if let Ok(lines) = read_file_as_lines("/proc/kallsyms") {
             for line in lines {
@@ -42,7 +40,8 @@ impl TestResult for YamaResult {
             return "".to_string();
         }
 
-        "Yama LSM not present, enabling it would prevent several ptrace-based escape attacks".to_string()
+        "Yama LSM not present, enabling it would prevent several ptrace-based escape attacks"
+            .to_string()
     }
 
     fn as_string(&self) -> String {

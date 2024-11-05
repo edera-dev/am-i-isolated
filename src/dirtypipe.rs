@@ -47,10 +47,16 @@ impl TestResult for DirtyPipeResult {
 
     fn explain(&self) -> String {
         if !self.vulnerable {
-            return format!("kernel '{}' not vulnerable to dirty pipe (CVE-2022-0847)", self.kernel_version);
+            return format!(
+                "kernel '{}' not vulnerable to dirty pipe (CVE-2022-0847)",
+                self.kernel_version
+            );
         }
 
-        format!("kernel '{}' vulnerable to dirty pipe (CVE-2022-0847), upgrade to kernel >= 5.17", self.kernel_version)
+        format!(
+            "kernel '{}' vulnerable to dirty pipe (CVE-2022-0847), upgrade to kernel >= 5.17",
+            self.kernel_version
+        )
     }
 
     fn as_string(&self) -> String {
