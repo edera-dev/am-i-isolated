@@ -54,7 +54,7 @@ impl TestResult for DirtyPipeResult {
         }
 
         format!(
-            "kernel '{}' vulnerable to dirty pipe (CVE-2022-0847), upgrade to kernel >= 5.17",
+            "kernel '{}' vulnerable to dirty pipe (CVE-2022-0847), upgrade to kernel >= 5.17 (or latest 5.15 LTS)",
             self.kernel_version
         )
     }
