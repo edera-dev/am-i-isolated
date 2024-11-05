@@ -46,4 +46,8 @@ impl TestResult for RootResult {
 
         "yes".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2250".to_string()
+    }
 }

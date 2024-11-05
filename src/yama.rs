@@ -54,4 +54,8 @@ impl TestResult for YamaResult {
 
         "not present".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2270".to_string()
+    }
 }

@@ -51,4 +51,8 @@ impl TestResult for ProcMaskResult {
 
         "not masked".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2230".to_string()
+    }
 }

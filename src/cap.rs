@@ -86,4 +86,8 @@ impl TestResult for CapResult {
 
         "yes".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2200".to_string()
+    }
 }

@@ -55,4 +55,8 @@ impl TestResult for MmapRWXResult {
 
         "not allowed".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2220".to_string()
+    }
 }

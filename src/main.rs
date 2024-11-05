@@ -33,6 +33,7 @@ pub trait TestResult {
     fn success(&self) -> bool;
     fn explain(&self);
     fn as_string(&self) -> String;
+    fn fault_code(&self) -> String;
 }
 
 pub trait TestError: Error {

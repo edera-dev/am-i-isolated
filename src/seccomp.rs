@@ -52,4 +52,8 @@ impl TestResult for SeccompResult {
 
         "not present".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2260".to_string()
+    }
 }

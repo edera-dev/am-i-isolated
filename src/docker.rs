@@ -54,4 +54,8 @@ impl TestResult for DockerResult {
 
         "not usable".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2211".to_string()
+    }
 }

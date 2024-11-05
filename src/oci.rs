@@ -50,4 +50,8 @@ impl TestResult for OCIResult {
 
         "not present".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2000".to_string()
+    }
 }

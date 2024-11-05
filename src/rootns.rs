@@ -75,4 +75,8 @@ impl TestResult for RootNSResult {
 
         "yes".to_string()
     }
+
+    fn fault_code(&self) -> String {
+        "AII2240".to_string()
+    }
 }
