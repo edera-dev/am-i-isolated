@@ -43,8 +43,7 @@ impl TestResult for ContainerDResult {
             return "containerd socket not found".to_string();
         }
 
-        "containerd socket found, `nerdctl run --privileged` can be used to escape"
-            .to_string()
+        "containerd socket found, `nerdctl run --privileged` can be used to escape".to_string()
     }
 
     fn as_string(&self) -> String {

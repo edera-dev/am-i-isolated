@@ -125,7 +125,9 @@ fn main() {
     let all_results = tests
         .iter()
         .map(|test| {
-            let result = test.run().unwrap_or_else(|_| panic!("test '{}' failed", test.name()));
+            let result = test
+                .run()
+                .unwrap_or_else(|_| panic!("test '{}' failed", test.name()));
             (test, result)
         })
         .collect::<Vec<_>>();
@@ -162,11 +164,10 @@ fn main() {
                 println!("  ✅ {} test passed: {}", test.name(), result.explain());
             } else {
                 println!(
-                    "  {} {} test failed: {} [{}]",
+                    "  {} {} test failed: {}",
                     category.as_fail_emoji(),
                     test.name(),
                     result.explain(),
-                    result.fault_code()
                 );
             }
         }
