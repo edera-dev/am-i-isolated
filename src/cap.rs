@@ -54,7 +54,7 @@ impl Test for CapTest {
     }
 
     fn category(&self) -> TestCategory {
-        TestCategory::Medium
+        TestCategory::High
     }
 }
 
