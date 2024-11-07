@@ -34,7 +34,8 @@ use self::yama::YamaTest;
 use anyhow::Result;
 
 fn banner() {
-    println!("🧰 Am I Isolated from Edera\n",);
+    println!("🧰 Am I Isolated from Edera");
+    println!("🌎 https://edera.dev\n");
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -63,9 +64,9 @@ impl TestCategory {
 
     fn as_fail_emoji(&self) -> &str {
         match self {
-            TestCategory::High => "❌",
-            TestCategory::Medium => "❌",
-            TestCategory::Low => "⚠️",
+            TestCategory::High => "🔴",
+            TestCategory::Medium => "🔴",
+            TestCategory::Low => "🟡",
         }
     }
 }
@@ -157,11 +158,11 @@ fn main() {
     }
 
     for (i, (category, tests)) in categorized_results.iter().enumerate() {
-        println!("{} {}:", category.as_emoji(), category.as_name());
+        println!("{} {}", category.as_emoji(), category.as_name());
 
         for (test, result) in tests {
             if result.success() && show_passing {
-                println!("  ✅ {} test passed: {}", test.name(), result.explain());
+                println!("  🟢 {} test passed: {}", test.name(), result.explain());
             } else {
                 println!(
                     "  {} {} test failed: {}",
