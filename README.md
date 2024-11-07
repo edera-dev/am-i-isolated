@@ -33,7 +33,7 @@ metadata:
 spec:
   containers:
   - name: am-i-isolated
-    image: "ghcr.io/edera-dev/am-i-isolated:nightly
+    image: "ghcr.io/edera-dev/am-i-isolated:nightly"
 ```
 
 And fetch the logs for the results
