@@ -83,9 +83,11 @@ impl TestResult for CapResult {
             (CAP_SYSLOG, "CAP_SYSLOG"),
         ]);
 
+        let mut sep = "";
         for k in cap_names.keys() {
             if self.flags & k == *k {
-                result += format!(" {}", cap_names[k]).trim();
+                result += &format!("{}{}", sep, cap_names[k]);
+                sep = " ";
             }
         }
 
