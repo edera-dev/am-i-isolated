@@ -23,4 +23,23 @@ In general you will want to use the OCI image:
 docker run --rm -it ghcr.io/edera-dev/am-i-isolated:nightly
 ```
 
-However, you can also build and run directly with Cargo.
+To detect isolation gaps in your Kubernetes environments, you can run it as a Pod
+
+```sh
+apiVersion: v1
+kind: Pod
+metadata:
+  name: am-i-isolated
+spec:
+  containers:
+  - name: am-i-isolated
+    image: "ghcr.io/edera-dev/am-i-isolated:nightly
+```
+
+And fetch the logs for the results
+
+```sh
+kubectl logs am-i-isolated
+```
+
+You can also build and run directly with Cargo.
