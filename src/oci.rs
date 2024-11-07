@@ -1,7 +1,7 @@
 use anyhow::Result;
-use std::env;
+use std::{env, fs};
 
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct OCITest {}
 
@@ -32,7 +32,18 @@ impl Test for OCITest {
             }
         }
 
+        if let Ok(exists) = fs::exists("/.dockerenv") {
+            if exists {
+                result.present = true;
+                result.runtime = "docker".to_string();
+            }
+        }
+
         Ok(Box::new(result))
+    }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Low
     }
 }
 
@@ -43,7 +54,7 @@ impl TestResult for OCIResult {
 
     fn explain(&self) -> String {
         if !self.present {
-            return "no OCI runtime found, results may be inaccurate".to_string();
+            return "no OCI runtime environment found".to_string();
         }
 
         format!("{} container runtime found", self.runtime).to_string()

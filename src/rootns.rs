@@ -1,7 +1,7 @@
 use anyhow::Result;
 use std::fs;
 
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct RootNSTest {}
 
@@ -42,6 +42,10 @@ impl Test for RootNSTest {
 
         Ok(Box::new(result))
     }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Medium
+    }
 }
 
 impl TestResult for RootNSResult {
@@ -51,7 +55,7 @@ impl TestResult for RootNSResult {
 
     fn explain(&self) -> String {
         if self.success() {
-            return "".to_string();
+            return "host namespaces not passed through".to_string();
         }
 
         let mut result = "found host namespaces:".to_string();

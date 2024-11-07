@@ -3,7 +3,7 @@ use std::os::unix::net::UnixStream;
 
 const CONTAINERD_SOCKET_LOCATION: &str = "/run/containerd/containerd.sock";
 
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct ContainerDTest {}
 
@@ -27,6 +27,10 @@ impl Test for ContainerDTest {
 
         Ok(Box::new(result))
     }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Medium
+    }
 }
 
 impl TestResult for ContainerDResult {
@@ -35,12 +39,12 @@ impl TestResult for ContainerDResult {
     }
 
     fn explain(&self) -> String {
-        if !self.success() {
-            return "".to_string();
+        if self.success() {
+            return "containerd socket not found".to_string();
         }
 
-        return "ContainerD socket found, `nerdctl run --privileged` can be used to escape"
-            .to_string();
+        "containerd socket found, `nerdctl run --privileged` can be used to escape"
+            .to_string()
     }
 
     fn as_string(&self) -> String {

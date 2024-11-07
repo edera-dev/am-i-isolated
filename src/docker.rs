@@ -3,7 +3,7 @@ use std::os::unix::net::UnixStream;
 
 const DOCKER_SOCKET_LOCATION: &str = "/var/run/docker.sock";
 
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct DockerTest {}
 
@@ -27,6 +27,10 @@ impl Test for DockerTest {
 
         Ok(Box::new(result))
     }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Medium
+    }
 }
 
 impl TestResult for DockerResult {
@@ -36,7 +40,7 @@ impl TestResult for DockerResult {
 
     fn explain(&self) -> String {
         if self.success() {
-            return "".to_string();
+            return "docker socket not found".to_string();
         }
 
         "Docker socket found, `docker run --privileged` can be used to escape".to_string()

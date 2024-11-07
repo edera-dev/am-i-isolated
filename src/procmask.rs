@@ -1,7 +1,7 @@
 use anyhow::Result;
 use std::fs::File;
 
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct ProcMaskTest {}
 
@@ -24,6 +24,10 @@ impl Test for ProcMaskTest {
 
         Ok(Box::new(result))
     }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::High
+    }
 }
 
 impl TestResult for ProcMaskResult {
@@ -33,7 +37,7 @@ impl TestResult for ProcMaskResult {
 
     fn explain(&self) -> String {
         if self.masked {
-            return "".to_string();
+            return "access to /proc and /sys is masked".to_string();
         }
 
         "access to /proc and /sys is not masked, can be used to restart the host and discover system configuration data".to_string()

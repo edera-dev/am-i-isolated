@@ -1,6 +1,6 @@
 use anyhow::Result;
 
-use crate::{util::kernel_release_info, Test, TestResult};
+use crate::{util::kernel_release_info, Test, TestCategory, TestResult};
 
 pub struct DirtyPipeTest {}
 
@@ -12,7 +12,7 @@ pub struct DirtyPipeResult {
 
 impl Test for DirtyPipeTest {
     fn name(&self) -> String {
-        "dirty pipe (CVE-2022-0847) vulnerbility".to_string()
+        "dirty pipe (CVE-2022-0847) vulnerability".to_string()
     }
 
     fn run(&self) -> Result<Box<dyn TestResult>, ()> {
@@ -37,6 +37,10 @@ impl Test for DirtyPipeTest {
             vulnerable,
             kernel_version,
         }))
+    }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::High
     }
 }
 

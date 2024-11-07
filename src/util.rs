@@ -13,6 +13,21 @@ pub fn read_file_as_lines<P: AsRef<Path>>(p: P) -> Result<Vec<String>, ()> {
     Err(())
 }
 
+pub fn read_file_as_space_separated_lines<P: AsRef<Path>>(p: P) -> Result<Vec<Vec<String>>, ()> {
+    match read_file_as_lines(p) {
+        Ok(lines) => Ok(lines
+            .into_iter()
+            .map(|line| {
+                line.split(" ")
+                    .map(|part| part.to_string())
+                    .collect::<Vec<_>>()
+            })
+            .collect::<Vec<_>>()),
+
+        Err(()) => Err(()),
+    }
+}
+
 pub fn read_file_as_tuples<P: AsRef<Path>>(p: P) -> Result<HashMap<String, String>, ()> {
     if let Ok(lines) = read_file_as_lines(p) {
         let mut map = HashMap::new();

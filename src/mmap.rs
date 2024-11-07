@@ -1,7 +1,7 @@
 use anyhow::Result;
 use libc;
 
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct MmapRWXTest {}
 
@@ -34,6 +34,10 @@ impl Test for MmapRWXTest {
         }
 
         Ok(Box::new(result))
+    }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Low
     }
 }
 

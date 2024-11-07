@@ -1,7 +1,7 @@
 use anyhow::Result;
 use libc;
 
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct RootTest {}
 
@@ -22,6 +22,10 @@ impl Test for RootTest {
 
         Ok(Box::new(result))
     }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Medium
+    }
 }
 
 impl TestResult for RootResult {
@@ -31,7 +35,7 @@ impl TestResult for RootResult {
 
     fn explain(&self) -> String {
         if self.uid != 0 {
-            return "".to_string();
+            return "workload is not running as root".to_string();
         }
 
         "workload is running as root".to_string()

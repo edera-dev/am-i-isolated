@@ -1,7 +1,7 @@
 use anyhow::Result;
 
 use crate::util::read_file_as_lines;
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct YamaTest {}
 
@@ -27,6 +27,10 @@ impl Test for YamaTest {
         }
 
         Ok(Box::new(result))
+    }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Low
     }
 }
 

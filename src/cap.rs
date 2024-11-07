@@ -2,7 +2,7 @@ use anyhow::Result;
 use std::collections::HashMap;
 
 use crate::util::read_file_as_tuples;
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct CapTest {}
 
@@ -52,6 +52,10 @@ impl Test for CapTest {
 
         Ok(Box::new(result))
     }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Medium
+    }
 }
 
 impl TestResult for CapResult {
@@ -61,7 +65,7 @@ impl TestResult for CapResult {
 
     fn explain(&self) -> String {
         if self.success() {
-            return "".to_string();
+            return "no dangerous capabilities found".to_string();
         }
 
         let mut result = "dangerous capabilities found: ".to_string();
@@ -81,7 +85,7 @@ impl TestResult for CapResult {
 
         for k in cap_names.keys() {
             if self.flags & k == *k {
-                result += &format!(" {}", cap_names[k]).to_string();
+                result += format!(" {}", cap_names[k]).trim();
             }
         }
 

@@ -1,7 +1,7 @@
 use anyhow::Result;
 
 use crate::util::read_file_as_tuples;
-use crate::{Test, TestResult};
+use crate::{Test, TestCategory, TestResult};
 
 pub struct SeccompTest {}
 
@@ -26,6 +26,10 @@ impl Test for SeccompTest {
 
         Ok(Box::new(result))
     }
+
+    fn category(&self) -> TestCategory {
+        TestCategory::Low
+    }
 }
 
 impl TestResult for SeccompResult {
@@ -35,7 +39,7 @@ impl TestResult for SeccompResult {
 
     fn explain(&self) -> String {
         if self.present {
-            return "".to_string();
+            return "seccomp profile found".to_string();
         }
 
         "no seccomp profile was found".to_string()
