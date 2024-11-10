@@ -1,7 +1,7 @@
-use std::collections::HashMap;
 use std::fs::read_to_string;
 use std::path::Path;
 use std::ptr::addr_of_mut;
+use std::{collections::HashMap, fs};
 
 use libc::uname;
 
@@ -67,4 +67,22 @@ pub fn kernel_release_info() -> (String, (u32, u32, u32)) {
         .collect();
 
     (release, (parts[0], parts[1], parts[2]))
+}
+
+pub fn kernel_cmdline() -> Vec<String> {
+    fs::read_to_string("/proc/cmdline")
+        .ok()
+        .unwrap_or_default()
+        .split(" ")
+        .map(|part| part.to_string())
+        .collect()
+}
+
+pub fn is_running_gvisor() -> bool {
+    let cmdline = kernel_cmdline();
+    if let Some(first) = cmdline.first() {
+        first.starts_with("BOOT_IMAGE=/vmlinuz-") && first.ends_with("-gvisor")
+    } else {
+        false
+    }
 }
