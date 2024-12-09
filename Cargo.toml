@@ -5,4 +5,4 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.94"
-libc = "0.2.167"
+libc = "0.2.168"
