@@ -62,7 +62,7 @@ pub fn kernel_release_info() -> (String, (u32, u32, u32)) {
     };
 
     let parts: Vec<u32> = release
-        .splitn(3, ".")
+        .split(".")
         .map(|x| x.trim().parse::<u32>().ok().unwrap_or(0))
         .collect();
 
