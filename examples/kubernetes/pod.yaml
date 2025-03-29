@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: am-i-isolated
+spec:
+  containers:
+  - name: am-i-isolated
+    image: "ghcr.io/edera-dev/am-i-isolated:nightly"
