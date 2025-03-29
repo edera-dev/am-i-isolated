@@ -25,7 +25,7 @@ docker run --rm -it ghcr.io/edera-dev/am-i-isolated:nightly
 
 To detect isolation gaps in your Kubernetes environments, you can run it as a Pod
 
-```sh
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
