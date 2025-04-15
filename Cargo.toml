@@ -6,4 +6,4 @@ rust-version = "1.85.0"
 
 [dependencies]
 anyhow = "1.0.98"
-libc = "0.2.171"
+libc = "0.2.172"
