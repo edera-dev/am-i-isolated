@@ -2,7 +2,6 @@
 
 # Define pod name and image
 POD_NAME="i-am-not-isolated"
-# IMAGE="ghcr.io/edera-dev/am-i-isolated:nightly"
 IMAGE="ghcr.io/edera-dev/am-i-isolated:nightly"
 
 # Check if the pod already exists
