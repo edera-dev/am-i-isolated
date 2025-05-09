@@ -10,6 +10,7 @@ pub struct RootNSResult {
     pub pid_nsid: u64,
     pub net_nsid: u64,
     pub ipc_nsid: u64,
+    pub user_nsid: u64,
 }
 
 fn resolve_nsid(ns: &str) -> u64 {
@@ -38,6 +39,7 @@ impl Test for RootNSTest {
             pid_nsid: resolve_nsid("pid"),
             net_nsid: resolve_nsid("net"),
             ipc_nsid: resolve_nsid("ipc"),
+            user_nsid: resolve_nsid("user"),
         };
 
         Ok(Box::new(result))
@@ -50,7 +52,7 @@ impl Test for RootNSTest {
 
 impl TestResult for RootNSResult {
     fn success(&self) -> bool {
-        self.pid_nsid > 0xf0000001 && self.net_nsid > 0xf0000001 && self.ipc_nsid > 0xf0000001
+        self.pid_nsid > 0xf0000001 && self.net_nsid > 0xf0000001 && self.ipc_nsid > 0xf0000001 && self.user_nsid > 0xf0000001
     }
 
     fn explain(&self) -> String {
@@ -70,6 +72,10 @@ impl TestResult for RootNSResult {
 
         if self.ipc_nsid < 0xf0000002 {
             result += " ipc";
+        }
+
+        if self.user_nsid < 0xf0000002 {
+            result += " user";
         }
 
         result
