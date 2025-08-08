@@ -1,4 +1,4 @@
-FROM docker.io/library/rust:1.88-alpine@sha256:9dfaae478ecd298b6b5a039e1f2cc4fc040fc818a2de9aa78fa714dea036574d AS build
+FROM docker.io/library/rust:1.89-alpine@sha256:a2b5309bf382aaa88d283f0ced3998717f15d8c88b4cc1391ce1c95a61b28359 AS build
 
 WORKDIR /usr/src/app
 COPY . .
