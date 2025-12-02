@@ -2,7 +2,7 @@
 name = "am-i-isolated"
 version = "0.4.0"
 edition = "2024"
-rust-version = "1.85.0"
+rust-version = "1.88.0"
 
 [dependencies]
 anyhow = "1.0.98"
