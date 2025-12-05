@@ -5,5 +5,5 @@ edition = "2024"
 rust-version = "1.88.0"
 
 [dependencies]
-anyhow = "1.0.98"
-libc = "0.2.173"
+anyhow = "1.0.100"
+libc = "0.2.178"
